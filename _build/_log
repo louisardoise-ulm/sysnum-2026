@@ -1,0 +1,19 @@
+### Starting build.
+# Target: /Users/louis/.opam/default/bin/ocamlc.opt -config, tags: {  }
+/Users/louis/.opam/default/bin/ocamlc.opt -config
+# Target: tp1/netlist_simulator.ml.depends, tags: { debug, extension:ml, file:tp1/netlist_simulator.ml, ocaml, ocamldep, quiet, use_menhir, use_unix }
+/Users/louis/.opam/default/bin/ocamldep.opt -modules tp1/netlist_simulator.ml > tp1/netlist_simulator.ml.depends
+# Target: tp1/netlist.ml.depends, tags: { debug, extension:ml, file:tp1/netlist.ml, ocaml, ocamldep, quiet, use_menhir, use_unix }
+/Users/louis/.opam/default/bin/ocamldep.opt -modules tp1/netlist.ml > tp1/netlist.ml.depends # cached
+# Target: tp1/netlist_lexer.mll, tags: { extension:mll, file:tp1/netlist_lexer.mll, lexer, ocaml, ocamllex, quiet, use_menhir }
+/Users/louis/.opam/default/bin/ocamllex.opt -q tp1/netlist_lexer.mll # cached
+# Target: tp1/netlist_lexer.ml.depends, tags: { debug, extension:ml, file:tp1/netlist_lexer.ml, ocaml, ocamldep, quiet, use_menhir, use_unix }
+/Users/louis/.opam/default/bin/ocamldep.opt -modules tp1/netlist_lexer.ml > tp1/netlist_lexer.ml.depends # cached
+# Target: tp1/netlist_parser.mly, tags: { extension:mly, file:tp1/netlist_parser.mly, infer, ocaml, ocamlyacc, parser, quiet, use_menhir }
+/Users/louis/.opam/default/bin/ocamlyacc tp1/netlist_parser.mly
++ /Users/louis/.opam/default/bin/ocamlyacc tp1/netlist_parser.mly
+File "tp1/netlist_parser.mly", line 38: unterminated action
+  INPUT inp=separated_list(COMMA, NAME)
+           ^
+Command exited with code 1.
+# Compilation unsuccessful.

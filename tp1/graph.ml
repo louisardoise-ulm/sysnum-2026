@@ -33,6 +33,34 @@ let clear_marks g =
 let find_roots g =
   List.filter (fun n -> n.n_linked_by = []) g.g_nodes
 
-let has_cycle g = failwith "Graph.has_cycle: Non implementé"
+let has_cycle g = 
+  clear_marks g;
+  let rec prop noeud = match noeud.n_mark with
+    | InProgress -> raise Cycle
+    | Visited -> ()
+    | NotVisited -> 
+        noeud.n_mark <- InProgress;
+        List.iter prop noeud.n_link_to;
+        noeud.n_mark <- Visited;
+  in
+  try
+    List.iter prop g.g_nodes;
+    false
+  with Cycle -> true
 
-let topological g = failwith "Graph.topological: Non implementé"
+let topological g =
+  if has_cycle g then raise Cycle
+  else (
+    clear_marks g;
+    let result = ref [] in
+    let rec process_noeuds noeud = 
+      if noeud.n_mark =  NotVisited then (
+        noeud.n_mark <- InProgress;
+        List.iter process_noeuds noeud.n_link_to;
+        result := noeud.n_label :: !result; (*to build an a' list*)
+        noeud.n_mark <- Visited;
+      )
+    in
+    List.iter process_noeuds g.g_nodes;
+    !result
+  )
