@@ -1,8 +1,7 @@
 open Netlist_ast
 
 let print_only = ref false
-let number_steps = ref (-1)
-let number_steps = ref 2
+let number_steps = ref 1
 let rom_size = 16
 let ram_size = 16
 
@@ -45,22 +44,10 @@ let compute exp env_ref = match exp with
     | _ -> failwith "ROM should be array")
   
   | Eram (addr_s, word_s, r_addr, w_enable, w_addr, data) -> (match fetch_arg (Avar "RAM") env_ref with
-    | VBitArray x -> (match fetch_arg w_enable env_ref with
-      | VBit w -> if not w then (
+    | VBitArray x -> 
           VBitArray (Array.sub x 
           (word_s * (value_to_dec (fetch_arg r_addr env_ref))) (* Get location = addr_size*addr but r_addr is a Bit or an array of Bit*)
           word_s) 
-        ) else (
-          let addr = (word_s * (value_to_dec (fetch_arg w_addr env_ref))) in
-          match fetch_arg data env_ref with
-          | VBit b ->
-              x.(addr) <- b;
-              VBit b
-          | VBitArray a ->
-              Array.blit a 0 x addr (Array.length a);
-              VBitArray a
-        )
-      | _ -> failwith "Expected a Bit" )
     | _ -> failwith "RAM should be array")
   
   | Econcat (a1,a2) -> (* DONE *)
